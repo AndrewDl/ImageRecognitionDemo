@@ -17,7 +17,7 @@ public class Controller implements IController {
         this.view = view;
         this.model = model;
 
-        String path = "CamModel/home/Image02.jpg";
+        String path = "CamModel/home/Image03.jpg";
         File imageFile = new File(path);
 
         if (imageFile.exists()) {
@@ -51,7 +51,7 @@ public class Controller implements IController {
         BufferedImage img = view.getOriginalImage();
         BufferedImage groundImage = null;
         try {
-            groundImage = ImageIO.read(new File("CamModel\\home\\Image03.jpg"));
+            groundImage = ImageIO.read(new File("CamModel\\home\\Image02.jpg"));
         }
         catch (IOException ex) {
         }
