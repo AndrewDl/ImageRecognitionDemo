@@ -1,5 +1,6 @@
-import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -11,6 +12,19 @@ public interface IView {
     void setResultingImage(BufferedImage image);
 
     void addCopyListener(ActionListener listener);
+
+    void addAdjustmentListener(AdjustmentListener listener);
+
+    boolean confirmBinarization();
+    boolean confirmBrightnessCorrection();
+    boolean confirmGrey();
+    boolean confirmCompression();
+    boolean confirmSubtraction();
+
+    float getBrightness();
+    float getContrast();
+    int getCompression();
+    int getBinarizationThreshold();
 
     BufferedImage getOriginalImage();
 

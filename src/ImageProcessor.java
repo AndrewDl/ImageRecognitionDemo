@@ -6,6 +6,12 @@ import java.awt.image.*;
  * Created by Andrew on 24.04.2016.
  */
 public class ImageProcessor {
+
+    /**
+     * Converts image to grey color scheme
+     * @param image color image to convert
+     * @return image in grey
+     */
     public static BufferedImage imageToGrey(BufferedImage image)    {
 
         int rgbArray[][] = ToRGBArray(image);
@@ -29,7 +35,15 @@ public class ImageProcessor {
         return ToBufferedImage(rgbArray);
     }
 
-    public static BufferedImage binarizationTreshold(BufferedImage image, int treshold){
+    /**
+     * Threshold binarization of image
+     * if pixel value > threshold - white
+     * else - black
+     * @param image image for binarization
+     * @param treshold binarization threshold
+     * @return
+     */
+    public static BufferedImage binarizationThreshold(BufferedImage image, int treshold){
         int rgbArray[][] = ToRGBArray(image);
 
         int width = rgbArray.length;
@@ -50,7 +64,14 @@ public class ImageProcessor {
         return ToBufferedImage(rgbArray);
     }
 
-    public static BufferedImage Scale(BufferedImage image, int scale, boolean enlarge){
+    /**
+     * Scales image
+     * @param image image to pricess
+     * @param scale how many times to scale
+     * @param enlarge true - positive scale; false - negative scale
+     * @return
+     */
+    private static BufferedImage Scale(BufferedImage image, int scale, boolean enlarge){
         int rgbArray[][] = ToRGBArray(image);
 
         int width = rgbArray.length;
@@ -71,6 +92,12 @@ public class ImageProcessor {
 
     }
 
+    /**
+     * Decrease noise level by deacreasing image quality using AvarageScalingFilter
+     * @param image
+     * @param multiplier
+     * @return
+     */
     public static BufferedImage Compress(BufferedImage image, int multiplier) {
 
         int rgbArray[][] = ToRGBArray(image);
@@ -81,6 +108,26 @@ public class ImageProcessor {
         return ToBufferedImage(img);
     }
 
+    /**
+     * Decrease noise level by deacreasing image quality using AvarageScalingFilter
+     * @param image
+     * @param brightness
+     * @param contrast
+     * @return
+     */
+    public static BufferedImage IncreaseBrightness(BufferedImage image, float brightness, float contrast) {
+
+        RescaleOp rescaleOp = new RescaleOp(brightness, contrast, null);
+        rescaleOp.filter(image, image);  // Source and destination are the same.
+
+        return ToBufferedImage(image);
+    }
+
+    /**
+     * Converts Buffered image to RGB array
+     * @param image image to convert
+     * @return RGB array
+     */
     public static int[][] ToRGBArray (BufferedImage image){
 
         int rgbArray[][] = new int[image.getWidth()][image.getHeight()];
@@ -94,6 +141,11 @@ public class ImageProcessor {
         return rgbArray;
     }
 
+    /**
+     * Converts RGB array to Buffered image
+     * @param rgbArray RGB array
+     * @return BufferedImage
+     */
     public static BufferedImage ToBufferedImage(int[][] rgbArray){
 
         int width = rgbArray.length;
@@ -107,6 +159,11 @@ public class ImageProcessor {
         return image;
     }
 
+    /**
+     * Converts Image to BufferedImage
+     * @param img image
+     * @return BufferedImage
+     */
     private static BufferedImage ToBufferedImage(Image img){
 
         // Create a buffered image with transparency

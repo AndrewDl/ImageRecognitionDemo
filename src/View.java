@@ -2,7 +2,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,7 +18,6 @@ public class View extends DesignerComponents implements IView{
     {
         InitializeComponents();
         this.setVisible(true);
-
 
         BufferedImage myPicture = null;
 
@@ -33,6 +36,44 @@ public class View extends DesignerComponents implements IView{
 
         this.pack();
 
+        scrollBarBrightness.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                float result;
+                result = scrollBarBrightness.getValue()/10f;
+                labelBrightness.setText("Brightness: " + result);
+            }
+        });
+
+        scrollBarContrast.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                float result;
+                result = scrollBarContrast.getValue()/10f;
+                labelContrast.setText("Contrast: " + result);
+            }
+        });
+
+        scrollBarBinarizationThreshold.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                int result;
+                result =
+                        (scrollBarBinarizationThreshold.getValue()<<16)|
+                                (scrollBarBinarizationThreshold.getValue()<<8)|
+                                scrollBarBinarizationThreshold.getValue();
+                labelBinarizationThreshold.setText("Threshold: " + Integer.toHexString(result));
+            }
+        });
+
+        scrollBarCompressionRate.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                int result;
+                result = scrollBarCompressionRate.getValue();
+                labelCompressionRate.setText("Compress: " + result);
+            }
+        });
     }
 
     @Override
@@ -49,7 +90,71 @@ public class View extends DesignerComponents implements IView{
 
     @Override
     public void addCopyListener(ActionListener listener) {
-        buttonCopy.addActionListener(listener);
+        buttonProcess.addActionListener(listener);
+    }
+
+    @Override
+    public void addAdjustmentListener(AdjustmentListener listener) {
+        scrollBarBinarizationThreshold.addAdjustmentListener(listener);
+        scrollBarBrightness.addAdjustmentListener(listener);
+        scrollBarContrast.addAdjustmentListener(listener);
+        scrollBarCompressionRate.addAdjustmentListener(listener);
+    }
+
+    @Override
+    public boolean confirmBinarization() {
+        return CheckBoxBinarization.isSelected();
+    }
+
+    @Override
+    public boolean confirmBrightnessCorrection() {
+        return CheckBoxBrightness.isSelected();
+    }
+
+    @Override
+    public boolean confirmGrey() {
+        return CheckBoxGrey.isSelected();
+    }
+
+    @Override
+    public boolean confirmCompression() {
+        return CheckBoxCompression.isSelected();
+    }
+
+    @Override
+    public boolean confirmSubtraction() {
+        return CheckBoxSubtraction.isSelected();
+    }
+
+    @Override
+    public float getBrightness() {
+        float result;
+        result = scrollBarBrightness.getValue()/10f;
+        return result;
+    }
+
+    @Override
+    public float getContrast() {
+        float result;
+        result = scrollBarContrast.getValue()/10f;
+        return result;
+    }
+
+    @Override
+    public int getCompression() {
+        int result;
+        result = scrollBarCompressionRate.getValue();
+        return result;
+    }
+
+    @Override
+    public int getBinarizationThreshold() {
+        int result;
+        result =
+                (scrollBarBinarizationThreshold.getValue()<<16)|
+                (scrollBarBinarizationThreshold.getValue()<<8)|
+                scrollBarBinarizationThreshold.getValue();
+        return result;
     }
 
     @Override
