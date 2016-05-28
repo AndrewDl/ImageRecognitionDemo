@@ -37,16 +37,17 @@ public class Controller implements IController {
                     img = ImageProcessor.imageToGrey(img);
 
                     //image compression
-                    groundImage = ImageProcessor.Compress(groundImage,1);
-                    img = ImageProcessor.Compress(img,1);
+                    groundImage = ImageProcessor.Compress(groundImage,4);
+                    img = ImageProcessor.Compress(img,4);
 
                     //image binarization
-                    groundImage = ImageProcessor.binarizationTreshold(groundImage,0x656565);
-                    img = ImageProcessor.binarizationTreshold(img,0x656565);
+                    //groundImage = ImageProcessor.binarizationTreshold(groundImage,0x656565);
+                    //img = ImageProcessor.binarizationTreshold(img,0x656565);
 
                     //image subtraction
 
                     img = ImageProcessor.ToBufferedImage( MotionRecogniser.subtract(ImageProcessor.ToRGBArray(groundImage),ImageProcessor.ToRGBArray(img)) );
+                    img = ImageProcessor.binarizationTreshold(img,0x151515);
 
                     view.setResultingImage(img);
                 }
