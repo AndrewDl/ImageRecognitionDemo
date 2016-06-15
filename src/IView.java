@@ -26,6 +26,8 @@ public interface IView {
     int getCompression();
     int getBinarizationThreshold();
 
+    void setLabelInfo(String s);
+
     BufferedImage getOriginalImage();
 
     BufferedImage getResultingImage();

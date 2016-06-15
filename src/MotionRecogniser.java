@@ -154,7 +154,7 @@ public class MotionRecogniser {
 
         for (int i = 0; i < result.length; i++){
             for (int j=0; j < result[0].length; j++){
-                result[i][j]=Math.abs( (DistortedImage[i][j]&0xFFFFFF)-(BaseImage[i][j]&0xFFFFFF) );
+                result[i][j]=Math.abs( (DistortedImage[i][j]&0xFFFFFFFF)-(BaseImage[i][j]&0xFFFFFFFF) );
             }
         }
 

@@ -177,5 +177,33 @@ public class ImageProcessor {
         return  bimage;
     }
 
+    /**
+     * Converts Buffered image to RGB array
+     * @param image image to convert
+     * @return RGB array
+     */
+    public static double GetAveragePixelValue (BufferedImage image){
+
+        double result = 0;
+
+        int rgbArray[][] = ToRGBArray(image);
+
+        for (int i=0; i < image.getWidth(); i++)
+            for (int j=0; j < image.getHeight(); j++)
+            {
+                result += (rgbArray[i][j]>>0)&0xFFFFFF;
+                /*
+                result += (rgbArray[i][j]>>16)&0xFF;
+                result += (rgbArray[i][j]>>8)&0xFF;
+                result += (rgbArray[i][j]>>0)&0xFF;
+                result += (rgbArray[i][j]>>24)&0xFF;
+                //result /= 3;
+                */
+            }
+
+        result=result/(image.getWidth()*image.getHeight());
+
+        return result;
+    }
 
 }

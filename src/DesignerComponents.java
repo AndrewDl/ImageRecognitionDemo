@@ -12,7 +12,7 @@ public abstract class DesignerComponents extends JFrame {
     protected JPanel panelPictureOriginal = new JPanel();
     protected JPanel panelPictureResulting = new JPanel();
     protected JPanel panelControls = new JPanel(new GridLayout(2,1));
-    protected JPanel panelCheckBoxes = new JPanel(new GridLayout(6,1));
+    protected JPanel panelCheckBoxes = new JPanel(new GridLayout(7,1));
 
     protected  JButton buttonProcess = new JButton("Process");
 
@@ -33,6 +33,8 @@ public abstract class DesignerComponents extends JFrame {
     protected JScrollBar scrollBarBinarizationThreshold = new JScrollBar(JScrollBar.HORIZONTAL,0x50,0,0,0xFF);
 
     protected JTabbedPane tabbedPaneSettings = new JTabbedPane();
+
+    protected JLabel labelInfo = new JLabel("Info");
 
     public void InitializeComponents(){
         this.setTitle("Swing Demo");
@@ -79,6 +81,7 @@ public abstract class DesignerComponents extends JFrame {
         panelCheckBoxes.add(CheckBoxCompression);
         panelCheckBoxes.add(CheckBoxBinarization);
         panelCheckBoxes.add(CheckBoxSubtraction);
+        panelCheckBoxes.add(labelInfo);
 
         //building setting controls
 

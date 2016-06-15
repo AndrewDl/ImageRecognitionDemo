@@ -158,6 +158,11 @@ public class View extends DesignerComponents implements IView{
     }
 
     @Override
+    public void setLabelInfo(String s) {
+        labelInfo.setText(s);
+    }
+
+    @Override
     public BufferedImage getOriginalImage() {
         Icon icon = labelPictureOriginal.getIcon();
 

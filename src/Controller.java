@@ -51,7 +51,8 @@ public class Controller implements IController {
         BufferedImage img = view.getOriginalImage();
         BufferedImage groundImage = null;
         try {
-            groundImage = ImageIO.read(new File("CamModel\\home\\Image02.jpg"));
+            groundImage = ImageIO.read(new File("CamModel\\home\\Image30.jpg"));
+            img = ImageIO.read(new File("CamModel\\home\\Image31.jpg"));
         }
         catch (IOException ex) {
         }
@@ -99,6 +100,15 @@ public class Controller implements IController {
         if (allowSubtraction) {
             img = ImageProcessor.ToBufferedImage(MotionRecogniser.subtract(ImageProcessor.ToRGBArray(groundImage), ImageProcessor.ToRGBArray(img)));
         }
+
+        double averageGround = ImageProcessor.GetAveragePixelValue(groundImage);
+        double averageImage = ImageProcessor.GetAveragePixelValue(img);
+
+        double result;
+        result = Math.sqrt( Math.pow( (averageGround-averageImage ),2));
+        view.setLabelInfo("Delta: " + (int)result );
+
+        view.setOriginalImage(groundImage);
         view.setResultingImage(img);
     }
 
